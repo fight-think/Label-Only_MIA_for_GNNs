@@ -55,9 +55,9 @@ def select_threshold_and_evaluate(shadow_data, target_data):
         
       #evaluate on target data
       if metric in ['cro_entropy']:
-        pre_as_thre_target=[1 if m < thres else 0 for m in target_x]
+        pre_as_thre_target=[1 if m < max_acc_threshold else 0 for m in target_x]
       elif metric in ['p_o_g_t','modified_cro_entropy']:
-        pre_as_thre_target=[1 if m > thres else 0 for m in target_x]
+        pre_as_thre_target=[1 if m > max_acc_threshold else 0 for m in target_x]
 
       #ev_auc=roc_auc_score(_true,ev_prob)
       ev_auc=roc_auc_score(target_y,target_x)
