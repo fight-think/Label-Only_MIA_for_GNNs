@@ -15,6 +15,26 @@ from tqdm import tqdm
 import sys
 # import ctypes
 
+def compute_metric_of_graph(G):
+  m_list=[]
+  if nx.is_connected(G):
+    m_list.append(1)
+  else:
+    m_list.append(0)
+  m_list.append(nx.number_connected_components(G))
+
+  d_c=nx.degree_centrality(G)
+  d_c_list=[d_c[key] for key in d_c.keys()]
+
+  d_c_avg=round(np.mean(d_c_list),3)
+  d_c_max=np.max(d_c_list)
+  d_c_min=np.min(d_c_list)
+  m_list.append(d_c_avg)
+  m_list.append(d_c_max)
+  m_list.append(d_c_min)
+  
+  return m_list #[is_connected,number_connected_components,degree_centrality_avg,degree_centrality_max,degree_centrality_min]
+
 
 #node classification task training
 def node_train(t_dataset,train_index,test_index,model_ps,device,find_feature):
